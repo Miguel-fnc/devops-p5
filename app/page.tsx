@@ -64,6 +64,25 @@ export default function Home() {
             API route
           </a>
         </nav>
+
+        {/* Tarjeta con información académica */}
+        <div className="rounded-xl border border-orange-200 bg-orange-50/60 p-6 shadow-sm">
+          <h3 className="text-lg font-semibold text-orange-950">Información del Estudiante</h3>
+          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3 text-slate-800">
+            <div>
+              <span className="block text-xs font-semibold uppercase tracking-wider text-slate-500">Carrera</span>
+              <p className="text-base font-medium">Ing. en Sistemas Computacionales</p>
+            </div>
+            <div>
+              <span className="block text-xs font-semibold uppercase tracking-wider text-slate-500">Semestre</span>
+              <p className="text-base font-medium">7mo Semestre</p>
+            </div>
+            <div>
+              <span className="block text-xs font-semibold uppercase tracking-wider text-slate-500">Materia</span>
+              <p className="text-base font-medium">Infraestructura para el Desarrollo Continuo</p>
+            </div>
+          </div>
+        </div>
       </section>
     </main>
   );
