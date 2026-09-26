@@ -63,6 +63,12 @@ export default function Home() {
           >
             API route
           </a>
+          <a
+            className="rounded-md border border-orange-300 bg-orange-50 px-4 py-2 text-sm font-medium text-orange-900 hover:bg-orange-100"
+            href="/api/users"
+          >
+            Usuarios desde D1
+          </a>
         </nav>
 
         {/* Tarjeta con información académica */}

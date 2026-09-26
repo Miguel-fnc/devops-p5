@@ -27,7 +27,8 @@
 	{
 		"binding": "p6",
 		"database_name": "practica6",
-		"database_id": "ad16cf6d-68ff-478a-a896-82a5a3d0af27"
+		"database_id": "ad16cf6d-68ff-478a-a896-82a5a3d0af27",
+		"migrations_dir": "migrations"
 	}
 	]
 }
