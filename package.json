@@ -27,6 +27,7 @@
   "scripts": {
     "dev": "vinext dev",
     "build": "vinext build",
+    "test": "node --test --experimental-test-coverage",
     "start": "wrangler dev --config dist/server/wrangler.json",
     "deploy": "vinext-cloudflare deploy --config dist/server/wrangler.json",
     "preview": "npm run build && npm run start --",

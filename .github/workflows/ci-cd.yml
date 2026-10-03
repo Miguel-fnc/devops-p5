@@ -1,0 +1,54 @@
+name: Build, test and deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-test:
+    name: Build, unit tests and coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Run unit tests and save coverage report
+        run: npm test | tee coverage.txt
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cloudflare-worker
+          path: |
+            dist/
+            coverage.txt
+          if-no-files-found: error
+          retention-days: 7
+
+  deploy-prod:
+    name: Publish Cloudflare production Worker
+    needs: build-test
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    environment: Prod
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: cloudflare-worker
+          path: .
+      - name: Deploy production Worker
+        run: npx vinext-cloudflare deploy --skip-build --config dist/server/wrangler.json --name devops-p5-prod
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
